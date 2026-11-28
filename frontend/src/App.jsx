@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Login from './pages/Login.jsx'
 import Signup from './pages/Signup.jsx'
+import ForgotPassword from './pages/ForgotPassword.jsx'
 import Home from './pages/Home.jsx'
 import Shop from './pages/Shop.jsx'
 import Profile from './pages/Profile.jsx'
@@ -10,6 +11,7 @@ import AdminOverview from './pages/AdminOverview.jsx'
 import AdminProducts from './pages/AdminProducts.jsx'
 import AdminPayroll from './pages/AdminPayroll.jsx'
 import AdminRiders from './pages/AdminRiders.jsx'
+import AdminReports from './pages/AdminReports.jsx'
 import RiderToday from './pages/RiderToday.jsx'
 import RiderDeliveries from './pages/RiderDeliveries.jsx'
 import RiderHistory from './pages/RiderHistory.jsx'
@@ -29,6 +31,7 @@ export default function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/shop" element={<PrivateRoute role="customer"><Home /></PrivateRoute>} />
         <Route path="/shop/catalog" element={<PrivateRoute role="customer"><Shop /></PrivateRoute>} />
         <Route path="/profile" element={<PrivateRoute role="customer"><Profile /></PrivateRoute>} />
@@ -38,6 +41,7 @@ export default function App() {
         <Route path="/admin/products" element={<PrivateRoute role="admin"><AdminProducts /></PrivateRoute>} />
         <Route path="/admin/riders" element={<PrivateRoute role="admin"><AdminRiders /></PrivateRoute>} />
         <Route path="/admin/payroll" element={<PrivateRoute role="admin"><AdminPayroll /></PrivateRoute>} />
+        <Route path="/admin/reports" element={<PrivateRoute role="admin"><AdminReports /></PrivateRoute>} />
         <Route path="/rider" element={<PrivateRoute role="delivery"><RiderToday /></PrivateRoute>} />
         <Route path="/rider/deliveries" element={<PrivateRoute role="delivery"><RiderDeliveries /></PrivateRoute>} />
         <Route path="/rider/history" element={<PrivateRoute role="delivery"><RiderHistory /></PrivateRoute>} />

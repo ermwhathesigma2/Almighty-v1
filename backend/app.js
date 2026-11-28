@@ -9,6 +9,7 @@ import productRoute from './routes/productRoute.js';
 import cartRoute from './routes/cartRoute.js';
 import orderRoute from './routes/orderRoute.js';
 import attendanceRoute from './routes/attendanceRoute.js';
+import reportRoute from './routes/reportRoute.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -27,6 +28,7 @@ app.use('/products', productRoute);
 app.use('/cart', cartRoute);
 app.use('/orders', orderRoute);
 app.use('/attendance', attendanceRoute);
+app.use('/reports', reportRoute);
 
 try {
     const port = 3000;

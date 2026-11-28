@@ -1,5 +1,8 @@
-import * as userService from '../services/userService.js';
 import jwt from 'jsonwebtoken';
+import * as userService from '../services/userService.js';
+import { sendOTP, verifyOTP } from '../services/otpService.js';
+import pool from '../config/db.js';
+import bcrypt from 'bcryptjs';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'allmighty_secret_key';
 
@@ -107,6 +110,33 @@ export const updateProfile = async (req, res) => {
         res.status(200).json({ success: true, message: 'Profile updated.' });
     } catch (e) {
         res.status(e.statusCode || 500).json({ error: e.message });
+    }
+}
+
+export const forgotPassword = async (req, res) => {
+    const { email } = req.body;
+    if (!email) return res.status(400).json({ error: 'Email is required.' });
+    try {
+        const [rows] = await pool.query("SELECT id FROM user WHERE email = ?", [email]);
+        if (rows.length === 0) return res.status(404).json({ error: 'No account found with this email.' });
+        await sendOTP(email);
+        res.status(200).json({ success: true, message: 'OTP sent to your email.' });
+    } catch (e) {
+        res.status(500).json({ error: 'Failed to send OTP. Please try again.' });
+    }
+}
+
+export const resetPassword = async (req, res) => {
+    const { email, newPassword } = req.body;
+    if (!email || !newPassword) return res.status(400).json({ error: 'All fields are required.' });
+    if (newPassword.length < 8) return res.status(400).json({ error: 'Password must be at least 8 characters.' });
+    try {
+        const salt = bcrypt.genSaltSync(10);
+        const hashed = bcrypt.hashSync(newPassword, salt);
+        await pool.query("UPDATE user SET password = ? WHERE email = ?", [hashed, email]);
+        res.status(200).json({ success: true, message: 'Password reset successfully.' });
+    } catch (e) {
+        res.status(500).json({ error: e.message });
     }
 }
 

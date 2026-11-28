@@ -5,6 +5,8 @@ const userRoute = express.Router();
 
 userRoute.post('/new', userController.createAccount);
 userRoute.post('/login', userController.login);
+userRoute.post('/forgot-password', userController.forgotPassword);
+userRoute.post('/reset-password', userController.resetPassword);
 userRoute.get('/profile', userController.getProfile);
 userRoute.patch('/profile', userController.updateProfile);
 userRoute.patch('/password', userController.updatePassword);

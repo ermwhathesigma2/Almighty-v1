@@ -54,7 +54,7 @@ export default function Login() {
                 <input type="checkbox" checked={remember} onChange={e => setRemember(e.target.checked)} />
                 Remember me
               </label>
-              <b><a href="#">Forgot password?</a></b>
+              <b><a href="/forgot-password">Forgot password?</a></b>
             </div>
             <button className="auth-btn" type="submit">Log In</button>
           </form>
